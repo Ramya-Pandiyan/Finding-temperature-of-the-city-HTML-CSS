@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data</title>
+    <style>
+        body{
+            background-image: url('bgimage.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        #city{
+            border: 2px solid blue;
+            border-radius: 4px;
+            width: 200px;
+            height: 20px;
+        }
+        #city:hover{
+            width: 210px;
+            height: 30px;
+        }
+        .button1{
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: antiquewhite;
+        }
+        .content{
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+    <center>
+    <h1>Hey.. Welcome</h1>
+    <h2>Type the city name in the box to know the temperature of the city.</h2>
+    <p id="output">
+        
+    </p>
+    <input id="city"><br><br><br>
+    <button onclick="show_temp()" class="button1">
+        Submit
+    </button>
+    <script type="text/javascript">
+        function show_temp(){
+            city = document.getElementById("city").value;
+            httpRequest = new XMLHttpRequest();
+            url = "https://api.weatherbit.io/v2.0/current?city="+city+"&key=8ae264977fe141639a5f0c868232353a";
+            httpRequest.open("GET", url);
+            httpRequest.send();
+            httpRequest.onreadystatechange = function(){
+                if (this.readyState = 4 && this.status == 200) {
+                    user_data = JSON.parse(this.responseText);
+                    document.getElementById("output").innerHTML = user_data.data[0].temp;
+                }
+            }
+        }
+    </script>
+    </center>
+</div>
+</body>
+</html>
